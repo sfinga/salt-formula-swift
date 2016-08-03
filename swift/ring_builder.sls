@@ -95,18 +95,24 @@ swift_ring_container_{{ device.address }}:
 swift_ring_object_rebalance_{{ring_num}}:
   cmd.wait:
     - name: swift-ring-builder {{ object_builder }} rebalance
+    - required_in:
+      - service: swift_proxy_services
 {%- endif %}
 
 {%- if ring_account %}
 swift_ring_account_rebalance:
   cmd.wait:
     - name: swift-ring-builder {{ account_builder }} rebalance
+    - required_in:
+      - service: swift_proxy_services
 {%- endif %}
 
 {%- if ring_container %}
 swift_ring_container_rebalance:
   cmd.wait:
     - name: swift-ring-builder {{ container_builder }} rebalance
+    - required_in:
+      - service: swift_proxy_services
 {%- endif %}
 
 {%- endif %}
